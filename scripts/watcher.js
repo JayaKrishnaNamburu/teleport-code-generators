@@ -14,7 +14,7 @@ const watcher = chokidar.watch(['packages/**/src/**/*.ts', 'packages/**/src/**/*
   interval: 500
 })
 
-log(chalk.yellow.bold('Watching all files... 👀'))
+log(chalk.yellow.bold('Watching all files for changes... 👀'))
 
 watcher.on('change', filePath => {
   const path = filePath.split('/')
