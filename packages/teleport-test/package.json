@@ -21,9 +21,13 @@
   "scripts": {
     "packer": "TS_NODE_FILES=true ts-node --project tsconfig.json ./src/packer.ts",
     "standalone": "TS_NODE_FILES=true ts-node --project tsconfig.json ./src/standalone.ts",
+    "ci": "TS_NODE_FILES=true ts-node --project tsconfig.json ./src/ci/ci.ts",
     "bundle": "webpack --config webpack.config.js"
   },
   "dependencies": {
+    "ci-env": "1.10.0",
+    "cross-fetch": "^3.0.4",
+    "github-build": "^1.2.1",
     "@teleporthq/teleport-code-generator": "^0.10.0",
     "@teleporthq/teleport-project-generator-angular": "^0.10.0",
     "@teleporthq/teleport-project-generator-gatsby": "^0.10.0",

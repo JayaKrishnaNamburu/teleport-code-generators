@@ -13,6 +13,7 @@
     "build:esm": "lerna run build:esm",
     "dev": "lerna link && npm run build:cjs && npm run watch",
     "watch": "node scripts/watcher.js",
+    "custom:ci": "node scripts/custom_ci.js",
     "test": "jest",
     "test:perf": "jest __tests__/performance",
     "test:coverage": "npm run test -- --coverage --no-cache",
