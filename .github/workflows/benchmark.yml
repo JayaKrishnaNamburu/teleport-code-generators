@@ -1,0 +1,17 @@
+name: 'Benchmarking'
+
+on: [push, pull_request]
+
+jobs:
+  benchmarking:
+    runs-on: ubuntu-latest
+    name: benchmarking, building and running tests
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: JayaKrishnaNamburu/behchmark@master
+        with:
+          benchmark-path: "pacakges/teleport-test/src/bench.js"
+          lint: true
+          test: "yarn test:coverage"
+          coverage: 'yarn upload:coverage'

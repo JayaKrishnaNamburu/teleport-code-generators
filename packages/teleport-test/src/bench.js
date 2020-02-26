@@ -16,16 +16,16 @@ const run = async () => {
 	
 		const end = process.hrtime.bigint()
 		const timeElapsed = Math.round(Number(end - start) / 1e6)
+		if (timeElapsed > 500) {
+			throw new Error(`Failed in passing benchmarking, observed - ${timeElapsed}`)		
+		}
 		console.log(`Time elapsed for cold start for  react ${timeElapsed}`)
 
 	} catch(e) {
-		console.error('Failed in packing project')
-		console.error(e)
+		throw new Error(e)
 	}
 
-	gc()
-
-	const warmRuns = []
+	let warmRuns = 0
 	const startRuns = process.hrtime.bigint()
 	for(i = 0; i<10; i++) {
 		try {
@@ -40,16 +40,15 @@ const run = async () => {
 			const end = process.hrtime.bigint()
 			const timeElapsed = Math.round(Number(end - start) / 1e6)
 			console.log(`Time elapsed for react for ${i}th run ${timeElapsed}`)
-			warmRuns.push(timeElapsed)
+			warmRuns = warmRuns + timeElapsed
 		} catch(e) {
-			console.error('Failed in packing project')
-			console.error(e)
+			throw new Error(e)
 		}
 	}
 	const endRuns = process.hrtime.bigint()
-	console.log(`${warmRuns.length} runs - ${Math.round(Number(endRuns - startRuns) / 1e6)}`)
-	const totalTime = warmRuns.reduce((a, b) => { return a + b}, 0)
-	console.log(`Average time in warm runs ${totalTime/warmRuns.length}`)
+	const timeSpent = Math.round(Number(endRuns - startRuns)/1e6)
+	console.log(`Total time taken for running 10 runs is ${timeSpent}`)
+	console.log(`Average time in warm runs ${timeSpent / 10}`)
 }
 
 run()
